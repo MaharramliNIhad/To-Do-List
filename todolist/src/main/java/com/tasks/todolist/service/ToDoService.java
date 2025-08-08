@@ -6,6 +6,7 @@ import com.tasks.todolist.dto.ToDoRequest;
 import com.tasks.todolist.dto.ToDoResponse;
 import com.tasks.todolist.entity.ToDo;
 import com.tasks.todolist.repository.ToDoRepo;
+import exeption.ToDoListNotFoundExeption;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -35,7 +36,17 @@ toDoResponseList.add(mapper.ToDoToToDoResponse(toDo));
     }
     public BaseResponse deleteToDo(long id){
        ToDo deleted=toDoRepo.findById(id).orElse(null);
+       if(deleted==null){
+           throw new ToDoListNotFoundExeption("Not found");
+       }
         toDoRepo.delete(deleted);
         return new BaseResponse().setData(deleted).setMessage("success").setTimestamp(LocalDateTime.now());
+    }
+    public BaseResponse getByID(long id){
+        ToDoResponse toDoResponse=mapper.ToDoToToDoResponse(toDoRepo.findById(id).orElse(null));
+        if (toDoResponse==null){
+            throw new ToDoListNotFoundExeption("Not Found");
+        }
+        return new BaseResponse().setData(toDoResponse).setMessage("succcess").setTimestamp(LocalDateTime.now());
     }
 }

@@ -31,4 +31,8 @@ public class ToDoController {
     public BaseResponse delete(@PathVariable Long id) {
         return toDoService.deleteToDo(id);
     }
+    @GetMapping("/getById/{id}")
+    public BaseResponse getById(@PathVariable("id") Long id) {
+        return toDoService.getByID(id);
+    }
 }
