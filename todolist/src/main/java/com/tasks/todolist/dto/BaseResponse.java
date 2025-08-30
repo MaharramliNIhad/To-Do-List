@@ -33,4 +33,13 @@ private LocalDateTime timestamp;
         this.message = message;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "BaseResponse{" +
+                "data=" + data +
+                ", message='" + message + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }

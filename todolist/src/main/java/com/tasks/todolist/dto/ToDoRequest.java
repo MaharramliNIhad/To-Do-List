@@ -1,18 +1,8 @@
 package com.tasks.todolist.dto;
 
 public class ToDoRequest {
-   private Long id;
   private   String name;
   private   String description;
-
-    public Long getId() {
-        return id;
-    }
-
-    public ToDoRequest setId(Long id) {
-        this.id = id;
-        return this;
-    }
 
     public String getName() {
         return name;

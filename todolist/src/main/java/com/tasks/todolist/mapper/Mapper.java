@@ -6,7 +6,6 @@ import com.tasks.todolist.entity.ToDo;
 
 @org.mapstruct.Mapper(componentModel = "spring")
 public interface Mapper {
-    ToDo toDoRequestToToDo(ToDoRequest toDoRequest);
     ToDoResponse ToDoToToDoResponse(ToDo toDo);
-
+ToDo ToDoRequestToToDo(ToDoRequest toDoRequest);
 }

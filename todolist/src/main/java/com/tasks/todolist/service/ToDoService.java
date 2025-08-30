@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -22,7 +23,7 @@ private final Mapper mapper;
         this.mapper = mapper;
     }
 
-    public BaseResponse getToDoRepo() {
+    public synchronized BaseResponse getToDoRepo() {
         List<ToDo> toDoList=toDoRepo.findAll();
         List<ToDoResponse> toDoResponseList=new ArrayList<>();
         for (ToDo toDo:toDoList){
@@ -30,11 +31,12 @@ toDoResponseList.add(mapper.ToDoToToDoResponse(toDo));
         }
         return new BaseResponse().setData(toDoResponseList).setMessage("success").setTimestamp(LocalDateTime.now());
     }
-    public BaseResponse addToDo(ToDoRequest toDoRequest){
-        toDoRepo.save(mapper.toDoRequestToToDo(toDoRequest));
-        return new BaseResponse().setData(toDoRequest).setMessage("success").setTimestamp(LocalDateTime.now());
+    public synchronized BaseResponse addToDo(ToDoRequest toDoRequest) {
+        ToDo doRequestToToDo = mapper.ToDoRequestToToDo(toDoRequest);
+        toDoRepo.save(doRequestToToDo);
+        return new BaseResponse().setData(doRequestToToDo).setMessage("success").setTimestamp(LocalDateTime.now());
     }
-    public BaseResponse deleteToDo(long id){
+    public synchronized BaseResponse deleteToDo(long id){
        ToDo deleted=toDoRepo.findById(id).orElse(null);
        if(deleted==null){
            throw new ToDoListNotFoundExeption("Not found");
@@ -42,11 +44,13 @@ toDoResponseList.add(mapper.ToDoToToDoResponse(toDo));
         toDoRepo.delete(deleted);
         return new BaseResponse().setData(deleted).setMessage("success").setTimestamp(LocalDateTime.now());
     }
-    public BaseResponse getByID(long id){
+    public synchronized BaseResponse getByID(long id){
         ToDoResponse toDoResponse=mapper.ToDoToToDoResponse(toDoRepo.findById(id).orElse(null));
         if (toDoResponse==null){
             throw new ToDoListNotFoundExeption("Not Found");
         }
         return new BaseResponse().setData(toDoResponse).setMessage("succcess").setTimestamp(LocalDateTime.now());
     }
+
+
 }
