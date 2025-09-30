@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("todo")
+@RequestMapping("//v1/todo")
 public class ToDoController {
 
     private final ToDoServiceMultiThread toDoServiceMultiThread;
@@ -24,22 +24,22 @@ public class ToDoController {
         this.toDoService = toDoService;
     }
 
-    @GetMapping("/getAll")
+    @GetMapping
     public CompletableFuture<BaseResponse> getAll() {
         return toDoServiceMultiThread.getToDoRepo();
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public CompletableFuture<BaseResponse> add(@RequestBody ToDoRequest toDo) {
         return toDoServiceMultiThread.addToDo(toDo);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public CompletableFuture<BaseResponse> delete(@PathVariable Long id) {
         return toDoServiceMultiThread.deleteToDo(id);
     }
-    @GetMapping("/getById/{id}")
-    public CompletableFuture<BaseResponse> getById(@PathVariable("id") Long id) {
+    @GetMapping("/{id}")
+    public CompletableFuture<BaseResponse> getById(@PathVariable Long id) {
         return toDoServiceMultiThread.getByID(id);
     }
 }
