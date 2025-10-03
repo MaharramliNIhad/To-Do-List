@@ -41,4 +41,9 @@ u.setSurname(user.getSurname());
     public void delete(Long id) {
         userRepo.deleteById(id);
     }
+    public User findByName(String name){
+        return userRepo.findByName(name);
+    }
+
+
 }

@@ -39,8 +39,8 @@ public class ToDoController {
         return toDoServiceMultiThread.deleteToDo(id);
     }
     @GetMapping("/{id}")
-    public CompletableFuture<BaseResponse> getById(@PathVariable Long id) {
-        return toDoServiceMultiThread.getByID(id);
+    public BaseResponse getById(@PathVariable Long id) {
+        return toDoService.getByID(id);
     }
 }
 //21-18 ms synchr post and delete
