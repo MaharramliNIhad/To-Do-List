@@ -4,11 +4,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-public class ToDo {
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class ToDoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
    private String name;
     private String description;
@@ -17,7 +24,7 @@ public class ToDo {
         return id;
     }
 
-    public ToDo setId(Long id) {
+    public ToDoEntity setId(Long id) {
         this.id = id;
         return this;
     }
@@ -26,7 +33,7 @@ public class ToDo {
         return name;
     }
 
-    public ToDo setName(String name) {
+    public ToDoEntity setName(String name) {
         this.name = name;
         return this;
     }
@@ -35,7 +42,7 @@ public class ToDo {
         return description;
     }
 
-    public ToDo setDescription(String description) {
+    public ToDoEntity setDescription(String description) {
         this.description = description;
         return this;
     }

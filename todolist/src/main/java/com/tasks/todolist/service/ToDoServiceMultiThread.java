@@ -3,7 +3,7 @@ package com.tasks.todolist.service;
 import com.tasks.todolist.dto.BaseResponse;
 import com.tasks.todolist.dto.ToDoRequest;
 import com.tasks.todolist.dto.ToDoResponse;
-import com.tasks.todolist.entity.ToDo;
+import com.tasks.todolist.entity.ToDoEntity;
 import com.tasks.todolist.mapper.Mapper;
 import com.tasks.todolist.repository.ToDoRepo;
 import exeption.ToDoListNotFoundExeption;
@@ -26,21 +26,21 @@ public class ToDoServiceMultiThread {
     }
 @Async
     public   CompletableFuture<BaseResponse> getToDoRepo() {
-        List<ToDo> toDoList=toDoRepo.findAll();
+        List<ToDoEntity> toDoEntityList =toDoRepo.findAll();
         List<ToDoResponse> toDoResponseList=new ArrayList<>();
-        for (ToDo toDo:toDoList){
-            toDoResponseList.add(mapper.ToDoToToDoResponse(toDo));
+        for (ToDoEntity toDoEntity : toDoEntityList){
+            toDoResponseList.add(mapper.ToDoToToDoResponse(toDoEntity));
         }
 return CompletableFuture.completedFuture(new BaseResponse().setData(toDoResponseList).setMessage("success").setTimestamp(LocalDateTime.now()));  }
     @Async
     public CompletableFuture<BaseResponse> addToDo(ToDoRequest toDoRequest) {
-        ToDo doRequestToToDo = mapper.ToDoRequestToToDo(toDoRequest);
-        toDoRepo.save(doRequestToToDo);
-        return CompletableFuture.completedFuture(new BaseResponse().setData(doRequestToToDo).setMessage("success").setTimestamp(LocalDateTime.now()));
+        ToDoEntity doRequestToToDoEntity = mapper.ToDoRequestToToDo(toDoRequest);
+        toDoRepo.save(doRequestToToDoEntity);
+        return CompletableFuture.completedFuture(new BaseResponse().setData(doRequestToToDoEntity).setMessage("success").setTimestamp(LocalDateTime.now()));
     }
     @Async
     public   CompletableFuture<BaseResponse> deleteToDo(long id){
-        ToDo deleted=toDoRepo.findById(id).orElse(null);
+        ToDoEntity deleted=toDoRepo.findById(id).orElse(null);
         if(deleted==null){
             throw new ToDoListNotFoundExeption("Not found");
         }

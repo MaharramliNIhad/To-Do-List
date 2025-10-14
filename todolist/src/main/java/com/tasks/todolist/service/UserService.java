@@ -1,11 +1,10 @@
 package com.tasks.todolist.service;
 
-import com.tasks.todolist.entity.User;
+import com.tasks.todolist.entity.UserEntity;
 import com.tasks.todolist.repository.UserRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class UserService {
@@ -14,36 +13,40 @@ public class UserService {
     public UserService(UserRepo userRepo) {
         this.userRepo = userRepo;
     }
-    public List<User> findAll() {
+
+    public List<UserEntity> findAll() {
         return userRepo.findAll();
     }
-    public User findById(Long id) {
+
+    public UserEntity findById(Long id) {
         return userRepo.findById(id).orElse(null);
     }
-    public User save(User user) {
-        return userRepo.save(user);
+
+    public UserEntity save(UserEntity userEntity) {
+        return userRepo.save(userEntity);
     }
-    public void update(Long id,User user) {
-User u = userRepo.findById(id).orElse(null);
-u.setName(user.getName());
-u.setSurname(user.getSurname());
+
+    public void update(Long id, UserEntity userEntity) {
+        UserEntity u = userRepo.findById(id).orElse(null);
+        u.setName(userEntity.getName());
+        u.setSurname(userEntity.getSurname());
     }
-    public void updateUserPartially(Long id,User user) {
-        User u = userRepo.findById(id).orElse(null);
+
+    public void updateUserPartially(Long id, UserEntity userEntity) {
+        UserEntity u = userRepo.findById(id).orElse(null);
         if (u.getName() != null) {
-            u.setName(user.getName());
+            u.setName(userEntity.getName());
         }
         if (u.getSurname() != null) {
-            u.setSurname(user.getSurname());
+            u.setSurname(userEntity.getSurname());
         }
         userRepo.save(u);
     }
+
     public void delete(Long id) {
         userRepo.deleteById(id);
     }
-    public User findByName(String name){
-        return userRepo.findByName(name);
-    }
-
-
 }
+
+
+

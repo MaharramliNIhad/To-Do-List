@@ -1,8 +1,7 @@
 package com.tasks.todolist.controller;
 
-import com.tasks.todolist.entity.User;
+import com.tasks.todolist.entity.UserEntity;
 import com.tasks.todolist.service.UserService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,24 +15,21 @@ public class UserController {
         this.userService = userService;
     }
         @GetMapping
-    public List<User> getUserList() {
+    public List<UserEntity> getUserList() {
         return userService.findAll();
     }
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
+    public UserEntity getUserById(@PathVariable Long id) {
         return userService.findById(id);
     }
     @PostMapping
-    public User addUser(@RequestBody User user) {
-        return userService.save(user);
+    public UserEntity addUser(@RequestBody UserEntity userEntity) {
+        return userService.save(userEntity);
     }
-    @GetMapping("/user")
-    public User findUserByName(@RequestParam String name) {
-        return userService.findByName(name);
-    }
+
     @PatchMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user) {
-        return userService.save(user);
+    public UserEntity updateUser(@PathVariable Long id, @RequestBody UserEntity userEntity) {
+        return userService.save(userEntity);
     }
     @DeleteMapping("{id}")
     public void deleteUser(@PathVariable Long id) {
