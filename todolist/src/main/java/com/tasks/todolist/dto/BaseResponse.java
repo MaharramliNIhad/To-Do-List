@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class BaseResponse {
     private Object data;
     private String message;
-private LocalDateTime timestamp;
+    private LocalDateTime timestamp;
 
     public Object getData() {
         return data;
@@ -41,5 +41,5 @@ private LocalDateTime timestamp;
                 ", message='" + message + '\'' +
                 ", timestamp=" + timestamp +
                 '}';
-    }
+    }//used lombok
 }

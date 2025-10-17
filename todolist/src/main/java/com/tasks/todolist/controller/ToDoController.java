@@ -1,16 +1,11 @@
 package com.tasks.todolist.controller;
 
 import com.tasks.todolist.dto.BaseResponse;
-import com.tasks.todolist.dto.ToDoRequest;
-import com.tasks.todolist.dto.ToDoResponse;
 import com.tasks.todolist.service.ToDoService;
-import com.tasks.todolist.service.ToDoServiceMultiThread;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("//v1/todo")

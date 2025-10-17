@@ -6,7 +6,8 @@ public enum ExeptionEnum {
     ToDoListNotFound(HttpStatus.NOT_FOUND.value(), "Not Found");
     int code;
     String msg;
-    private ExeptionEnum(int code,String msg){
+
+    ExeptionEnum(int code,String msg){
         this.code = code;
         this.msg = msg;
     }
@@ -16,4 +17,4 @@ public enum ExeptionEnum {
     public String getMsg() {
         return msg;
     }
-}
+}//refactor this

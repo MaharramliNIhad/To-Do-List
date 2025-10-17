@@ -33,4 +33,4 @@ public class ExeptionResponse {
         this.timestamp = timestamp;
         return this;
     }
-}
+}//used lombok
