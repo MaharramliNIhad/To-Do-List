@@ -14,53 +14,54 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @Service
 public class ToDoServiceMultiThread {
 
     private final ToDoRepo toDoRepo;
     private final ToDoMapper toDoMapper;
-
     public ToDoServiceMultiThread(ToDoRepo toDoRepo, ToDoMapper toDoMapper) {
         this.toDoRepo = toDoRepo;
         this.toDoMapper = toDoMapper;
+
     }
 
     @Async
-    public CompletableFuture<BaseResponse> getToDoRepo() {//http status code  -  ACCEPTED
-        List<ToDoEntity> toDoEntityList = toDoRepo.findAll(); // 30san - gateway timeout
-        List<ToDoResponse> toDoResponseList = new ArrayList<>();
-        for (ToDoEntity toDoEntity : toDoEntityList) {
-            toDoResponseList.add(toDoMapper.toToDoResponse(toDoEntity));
-        } //Runnable - void, Collable - future get edirdin
-        return CompletableFuture.completedFuture(new BaseResponse().setData(toDoResponseList).setMessage("success").setTimestamp(LocalDateTime.now()));
+    public CompletableFuture<BaseResponse> getToDoRepo() {
+       return CompletableFuture.supplyAsync(() -> {
+            List<ToDoEntity> toDoEntityList = toDoRepo.findAll();
+            List<ToDoResponse> toDoResponseList = toDoEntityList.stream().map(toDoMapper::toToDoResponse)
+                    .collect(Collectors.toList());
+            return new BaseResponse().setData(toDoResponseList).setMessage("success").setTimestamp(LocalDateTime.now());
+        });
     }
 
     @Async
     public CompletableFuture<BaseResponse> addToDo(ToDoRequest toDoRequest) {
-        ToDoEntity doRequestToToDoEntity = toDoMapper.toToDoEntity(toDoRequest);
-        toDoRepo.save(doRequestToToDoEntity);
-        return CompletableFuture.completedFuture(new BaseResponse().setData(doRequestToToDoEntity).setMessage("success").setTimestamp(LocalDateTime.now()));
+        return CompletableFuture.supplyAsync(() -> {
+            ToDoEntity doRequestToToDoEntity = toDoMapper.toToDoEntity(toDoRequest);
+            toDoRepo.save(doRequestToToDoEntity);
+             return new BaseResponse().setData(doRequestToToDoEntity).setMessage("success").setTimestamp(LocalDateTime.now());
+        });
     }
 
     @Async
     public CompletableFuture<BaseResponse> deleteToDo(long id) {
-        ToDoEntity deleted = toDoRepo.findById(id).orElse(null);
-        if (deleted == null) {
-            throw new ToDoListNotFoundExeption("Not found");
-        }
-        toDoRepo.delete(deleted);
-        return CompletableFuture.completedFuture(new BaseResponse().setData(deleted).setMessage("success").setTimestamp(LocalDateTime.now()));
+        return CompletableFuture.supplyAsync(()->{
+            ToDoEntity deleted = toDoRepo.findById(id).orElseThrow(()-> new ToDoListNotFoundExeption("not found") );
+            toDoRepo.delete(deleted);
+            return new BaseResponse().setData(deleted).setMessage("success").setTimestamp(LocalDateTime.now());
+
+        });
     }
 
     @Async
-    public CompletableFuture<BaseResponse> getByID(long id) {
-        ToDoResponse toDoResponse = toDoMapper.toToDoResponse(toDoRepo.findById(id).orElse(null));
-        if (toDoResponse == null) {
-            throw new ToDoListNotFoundExeption("Not Found");
-        }
-        return CompletableFuture.completedFuture(new BaseResponse().setData(toDoResponse)
-                .setMessage("succcess")
-                .setTimestamp(LocalDateTime.now()));
+    public CompletableFuture<ToDoResponse> getByID(long id) {
+        return CompletableFuture.supplyAsync(()->{
+            ToDoResponse toDoResponse = toDoMapper.toToDoResponse(toDoRepo.findById(id).orElseThrow(()-> new ToDoListNotFoundExeption("not found")));
+            return toDoResponse;
+        });
     }
+
 }

@@ -1,20 +1,14 @@
 package com.tasks.todolist.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
-
+@Getter
+@AllArgsConstructor
 public enum ExeptionEnum {
-    ToDoListNotFound(HttpStatus.NOT_FOUND.value(), "Not Found");
+    TO_DO_LIST_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "ToDo Not Found"),
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "User Not Found");
+
     int code;
     String msg;
-
-    ExeptionEnum(int code,String msg){
-        this.code = code;
-        this.msg = msg;
-    }
-    public int getCode() {
-        return code;
-    }
-    public String getMsg() {
-        return msg;
-    }
-}//refactor this
+}
