@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-10-12T23:40:16+0400",
+    date = "2025-10-18T16:36:12+0400",
     comments = "version: 1.6.3, compiler: javac, environment: Java 23.0.2 (Oracle Corporation)"
 )
 @Component
-public class MapperImpl implements Mapper {
+public class ToDoMapperImpl implements ToDoMapper {
 
     @Override
-    public ToDoResponse ToDoToToDoResponse(ToDoEntity toDoEntity) {
+    public ToDoResponse toToDoResponse(ToDoEntity toDoEntity) {
         if ( toDoEntity == null ) {
             return null;
         }
@@ -26,7 +26,7 @@ public class MapperImpl implements Mapper {
     }
 
     @Override
-    public ToDoEntity ToDoRequestToToDo(ToDoRequest toDoRequest) {
+    public ToDoEntity toToDoEntity(ToDoRequest toDoRequest) {
         if ( toDoRequest == null ) {
             return null;
         }

@@ -1,7 +1,11 @@
 package com.tasks.todolist.dto;
 
-import java.time.LocalDateTime;
+import lombok.*;
 
+import java.time.LocalDateTime;
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class ExeptionResponse {
     private int code;
     private String message;
