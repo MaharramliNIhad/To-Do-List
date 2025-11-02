@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping
-    public void addUser(@RequestBody UserEntity userRequest) {
+    public void addUser(@RequestBody UserRequest userRequest) {
         userService.save(userRequest);
     }
 
