@@ -1,13 +1,15 @@
 package com.tasks.todolist.entity;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "users")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,32 +18,6 @@ public class UserEntity {
     private String name;
     private String surname;
 
-    public Long getId() {
-        return id;
-    }
-
-    public UserEntity setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public UserEntity setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public UserEntity setSurname(String surname) {
-        this.surname = surname;
-        return this;
-    }
 }
 
 

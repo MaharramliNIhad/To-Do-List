@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-10-18T16:36:12+0400",
-    comments = "version: 1.6.3, compiler: javac, environment: Java 23.0.2 (Oracle Corporation)"
+    date = "2025-11-01T01:33:04+0400",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 23.0.2 (Oracle Corporation)"
 )
 @Component
 public class ToDoMapperImpl implements ToDoMapper {

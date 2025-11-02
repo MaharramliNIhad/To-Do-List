@@ -31,9 +31,9 @@ public class UserService {
     }
 
 
-    public void save(UserEntity userRequest) {
-//        UserEntity userEntity = userMapper.toUserEntity(userRequest);
-         userRepo.save(userRequest);
+    public void save(UserRequest userRequest) {
+        UserEntity userEntity = userMapper.toUserEntity(userRequest);
+         userRepo.save(userEntity);
     }
 
     public void update(Long id, UserPatch userPatch) {
